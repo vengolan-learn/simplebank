@@ -75,6 +75,14 @@ func Test_DeleteAccount(t *testing.T) {
 
 func Test_ListAccount(t *testing.T) {
 
+	//add few accounts just incase there are less than 5 accounts while this test runs
+	createRandomAccount(t)
+	createRandomAccount(t)
+	createRandomAccount(t)
+	createRandomAccount(t)
+	createRandomAccount(t)
+	createRandomAccount(t)
+
 	arg := ListAccountsParams{
 		Limit:  5,
 		Offset: 0,
