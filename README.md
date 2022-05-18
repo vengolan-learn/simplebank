@@ -90,3 +90,20 @@ mkddr -p db/migration
 * Gorilla Mux
 * HttpRouter
 * Chi
+
+### 2.2 Configuration
+
+#### 2.2.1 Viper
+
+* Very popular golang package used to load config files from *file* and *env vars*
+* It can find, load and unmarshal values from JSON, TOML, YAML, ENV and INI
+* Can read values from env variables or command line flags
+* It can also read config from remote system like *Consul*, *etcd* etc...
+
+**Why file?** - Development - Easily specify default configurations for local development and testing
+
+**Env vars** - Deployment - Easily override default configurations while deploying to staging or production with docker containers
+
+Github Link - <https://github.com/spf13/viper>
+
+Install -  `go get github.com/spf13/viper`
