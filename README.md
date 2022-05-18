@@ -71,3 +71,22 @@ mkddr -p db/migration
     ```shell
     $go get github.com/stretchr/testify
     ```
+
+## 2  REST API
+
+### 2.1 Web Frameworks
+
+* Gin - This is the most popular framework
+* Beego
+* Echo
+* Revel
+* Martini
+* Fiber
+* Buffallo
+
+### 2.2 Router Frameworks
+
+* FastHttp
+* Gorilla Mux
+* HttpRouter
+* Chi
