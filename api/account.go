@@ -2,6 +2,7 @@ package api
 
 import (
 	"database/sql"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -85,4 +86,48 @@ func (server *Server) listAccount(ctx *gin.Context) {
 		return
 	}
 	ctx.JSON(http.StatusOK, accounts)
+}
+
+type updateAccounRequest struct {
+	ID      int64 `json:"id" binding:"required,min=1"`
+	Balance int64 `json:"balance" binding:"required"`
+}
+
+func (server *Server) updateAccount(ctx *gin.Context) {
+	var req updateAccounRequest
+	if err := ctx.ShouldBindJSON(&req); err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
+
+	arg := db.UpdateAccountParams{
+		ID:      req.ID,
+		Balance: req.Balance,
+	}
+	account, err := server.store.UpdateAccount(ctx, arg)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+	ctx.JSON(http.StatusOK, account)
+}
+
+func (server *Server) deleteAccount(ctx *gin.Context) {
+	var req getAccountRequest
+	if err := ctx.ShouldBindUri(&req); err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
+	fmt.Println("here ", req.ID)
+
+	err := server.store.DeleteAccount(ctx, req.ID)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			ctx.JSON(http.StatusNotFound, errorResponse(err))
+			return
+		}
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+	ctx.JSON(http.StatusOK, gin.H{"msg": fmt.Sprintf("account %d deleted", req.ID)})
 }
