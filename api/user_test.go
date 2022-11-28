@@ -201,7 +201,8 @@ func TestCreateUserAPI(t *testing.T) {
 
 }
 
-func requireBodyMatchUser(t *testing.T, body *bytes.Buffer, user db.User) {
+func requireBodyMatchUser(t testing.TB, body *bytes.Buffer, user db.User) {
+	t.Helper()
 	data, err := ioutil.ReadAll(body)
 	require.NoError(t, err)
 	var gotUser db.User
@@ -215,7 +216,8 @@ func requireBodyMatchUser(t *testing.T, body *bytes.Buffer, user db.User) {
 
 }
 
-func randomUser(t *testing.T) (user db.User, password string) {
+func randomUser(t testing.TB) (user db.User, password string) {
+	t.Helper()
 	password = util.RandomString(6)
 	hashedPassword, err := util.HashPassword(password)
 	require.NoError(t, err)
