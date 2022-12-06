@@ -1,4 +1,4 @@
-name: ci-test
+name: Deploy to proudction
 
 on:
   push:
