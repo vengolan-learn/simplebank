@@ -1,5 +1,6 @@
 #!/bin/sh
 
+#test comment
 set -e 
 
 echo "run db migration"
